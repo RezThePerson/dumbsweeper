@@ -1,36 +1,3 @@
-<style>
-	body {
-		background-color: black;
-		color: white;
-		font-family: mono;
-
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-
-		gap: 3px;
-	}
-
-	c {
-		display: grid;
-		grid-template-columns: repeat(9, 1fr);
-
-		width: 450px;
-	}
-
-	d {
-		height: 48px;
-		width: 48px;
-		background-color: gray;
-		border: 1px solid white;
-	}
-</style>
-
 <h1>Mindsweeper, now packaged as Dumbsweeper!</h1>
 
 <c id=c></c>
-
-<script>
-	c.innerHTML = '<d></d>'.repeat(81)
-	let board = [...c.children]
-</script>
