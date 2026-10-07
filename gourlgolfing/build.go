@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"regexp"
 	"strings"
 
 	"github.com/tdewolff/minify/v2"
@@ -22,12 +23,13 @@ func build(folder string) error {
 
 	// minify using lib
 	m := minify.New()
-	m.AddFunc("text/css", css.Minify)
-	m.AddFunc("text/javascript", js.Minify)
-	m.Add("text/html", &html.Minifier{
-		KeepDocumentTags: true,
-		KeepEndTags:      true,
-	})
+	m.Add("text/html", &html.Minifier{})
+	m.Add("text/css", &css.Minifier{})
+	m.Add("text/javascript", &js.Minifier{})
+	m.AddRegexp(
+		regexp.MustCompile(`^(application|text)/(x-)?(java|ecma|j|live)script(1\.[0-5])?$|^module$`),
+		&js.Minifier{},
+	)
 
 	htmlOut, err := m.String("text/html", string(rawBytes))
 	if err != nil {
@@ -46,7 +48,7 @@ func build(folder string) error {
 	fmt.Printf("uri written to uri.txt\n")
 
 	// info about uri limit
-	bytesLen := len([]byte(uri))
+	bytesLen := len(uri)
 	if bytesLen > limit {
 		fmt.Printf("%d / %d bytes, %d over\n", bytesLen, limit, bytesLen-limit)
 	} else {
