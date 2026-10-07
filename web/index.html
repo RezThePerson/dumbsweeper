@@ -28,17 +28,9 @@
 
 <h1>Mindsweeper, now packaged as Dumbsweeper!</h1>
 
-<c>
-	<d></d>
-</c>
+<c id=c></c>
 
 <script>
-	const ROWS = 9;
-	const COLS = 9;
-	const boardElement = document.querySelector('c');
-
-	for (let i = 1; i < ROWS * COLS; i++) {
-		const cell = document.createElement('d');
-		boardElement.appendChild(cell);
-	}
+	c.innerHTML = '<d></d>'.repeat(81)
+	let board = [...c.children]
 </script>
