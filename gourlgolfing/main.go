@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-
-	"github.com/reztheperson/dumbsweeper/gourlgolfing/packages/dev"
 )
 
 func usage() {
@@ -22,9 +20,15 @@ func main() {
 
 	switch command {
 	case "dev":
-		dev.Serve(folder)
+		if err := serve(folder); err != nil {
+			fmt.Fprintf(os.Stderr, "error serving: %v\n", err)
+			os.Exit(1)
+		}
 	case "build":
-		// runBuild(folder)
+		if err := build(folder); err != nil {
+			fmt.Fprintf(os.Stderr, "error building: %v\n", err)
+			os.Exit(1)
+		}
 	default:
 		usage()
 	}

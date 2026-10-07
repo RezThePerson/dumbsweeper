@@ -1,17 +1,11 @@
-package dev
+package main
 
 import (
-	"log"
+	"fmt"
 	"net/http"
-	"os"
 )
 
-func Serve(folder string) {
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-
+func serve(folder string) error {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		payload, err := bundle(folder)
 		if err != nil {
@@ -23,8 +17,10 @@ func Serve(folder string) {
 		w.Write(payload)
 	})
 
-	log.Printf("Serving dev testing files from '%s' at http://localhost:%s\n", folder, port)
-	if err := http.ListenAndServe(":"+port, nil); err != nil {
-		log.Fatalf("Dev server stopped: %v\n", err)
+	fmt.Printf("Serving dev testing files from '%s' at localhost:8080\n", folder)
+	if err := http.ListenAndServe(":8080", nil); err != nil {
+		return fmt.Errorf("Dev server stopped: %v", err)
 	}
+
+	return nil
 }
