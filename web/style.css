@@ -1,5 +1,5 @@
 body,
-d {
+button {
 	background: black;
 	color: white;
 	font-family: monospace;
@@ -10,15 +10,16 @@ d {
 	justify-content: center;
 }
 
-c {
-	display: grid;
-	grid-template-columns: repeat(9, 50px);
-}
-
-d {
+button {
 	height: 48px;
 	width: 48px;
 
 	background: gray;
 	border: 1px solid white;
+}
+
+
+c {
+	display: grid;
+	grid-template-columns: repeat(9, 50px);
 }
